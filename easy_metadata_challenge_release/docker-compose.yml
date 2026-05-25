@@ -1,0 +1,8 @@
+services:
+  easy:
+    build: .
+    image: ctf-easy-metadata
+    container_name: ctf-easy-metadata
+    ports:
+      - "8080:8080"
+    restart: unless-stopped

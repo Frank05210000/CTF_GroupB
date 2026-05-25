@@ -1,0 +1,8 @@
+services:
+  hard-ssh-suid:
+    build: .
+    image: hard-ssh-suid
+    container_name: hard-ssh-suid
+    ports:
+      - "2222:22"
+    restart: unless-stopped
