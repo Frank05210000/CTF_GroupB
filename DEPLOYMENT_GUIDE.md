@@ -47,7 +47,31 @@ hard_ssh_suid_challenge/
 
 ## 3. 一次部署三題
 
-在 `CTF團體報告/` 執行：
+在專案根目錄執行一鍵啟動腳本：
+
+```bash
+./start_ctf.sh
+```
+
+如果部署在 Linux lab 主機，也可以把主機 IP 傳給腳本，輸出的 Red Team 目標會直接顯示該 IP：
+
+```bash
+./start_ctf.sh <Linux主機IP>
+```
+
+檢查三題服務是否在線：
+
+```bash
+./check_ctf.sh
+```
+
+停止三題服務：
+
+```bash
+./stop_ctf.sh
+```
+
+也可以直接使用 Docker Compose：
 
 ```bash
 docker compose up --build

@@ -2,9 +2,13 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        ca-certificates \
+RUN apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/partial/* \
+    && sed -i 's|http://ports.ubuntu.com/ubuntu-ports|https://ports.ubuntu.com/ubuntu-ports|g' /etc/apt/sources.list \
+    && apt-get -o Acquire::Retries=5 -o Acquire::https::Verify-Peer=false update \
+    && apt-get -o Acquire::Retries=5 -o Acquire::https::Verify-Peer=false install -y --no-install-recommends ca-certificates \
+    && apt-get -o Acquire::Retries=5 update \
+    && apt-get -o Acquire::Retries=5 install -y --no-install-recommends \
         openssh-server \
         vim-nox \
     && rm -rf /var/lib/apt/lists/*

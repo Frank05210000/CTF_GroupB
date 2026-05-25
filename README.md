@@ -7,6 +7,24 @@
 若 release 內包含三題 release 目錄與總 `docker-compose.yml`，可在此目錄執行：
 
 ```bash
+./start_ctf.sh
+```
+
+檢查服務狀態：
+
+```bash
+./check_ctf.sh
+```
+
+停止服務：
+
+```bash
+./stop_ctf.sh
+```
+
+也可以直接使用 Docker Compose：
+
+```bash
 docker compose up --build
 ```
 
