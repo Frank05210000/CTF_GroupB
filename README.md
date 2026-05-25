@@ -4,7 +4,7 @@
 
 ## 部署方式
 
-若 release 內包含三題 release 目錄與總 `docker-compose.yml`，可在此目錄執行：
+Clone 或解壓後，在專案根目錄執行：
 
 ```bash
 ./start_ctf.sh
@@ -38,6 +38,15 @@ docker compose down
 
 ```bash
 docker compose logs
+```
+
+## 目錄結構
+
+```text
+challenges/          三題可部署題目
+release_archives/    公開發題壓縮包備份
+*.sh                 Docker 安裝、啟動、檢查、停止腳本
+docker-compose.yml   三題總部署入口
 ```
 
 ## 題目目標

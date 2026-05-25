@@ -22,19 +22,20 @@ docker compose version
 
 ## 2. 目錄結構
 
-從專案根目錄進入 `CTF團體報告/`：
+進入專案根目錄：
 
 ```bash
-cd CTF團體報告
+cd CTF_GroupB
 ```
 
 主要部署檔案：
 
 ```text
 docker-compose.yml
-easy_metadata_challenge/
-medium_web_challenge/
-hard_ssh_suid_challenge/
+challenges/easy_metadata_challenge/
+challenges/medium_web_challenge/
+challenges/hard_ssh_suid_challenge/
+release_archives/
 ```
 
 總 `docker-compose.yml` 會建立三個 service：

@@ -1,6 +1,6 @@
 services:
   easy:
-    build: ./easy_metadata_challenge_release
+    build: ./challenges/easy_metadata_challenge
     image: ctf-easy-metadata
     container_name: ctf-easy-metadata
     ports:
@@ -8,7 +8,7 @@ services:
     restart: unless-stopped
 
   medium:
-    build: ./medium_web_challenge_release
+    build: ./challenges/medium_web_challenge
     image: ctf-medium-web
     container_name: ctf-medium-web
     ports:
@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
 
   hard:
-    build: ./hard_ssh_suid_challenge_release
+    build: ./challenges/hard_ssh_suid_challenge
     image: hard-ssh-suid
     container_name: ctf-hard-ssh-suid
     ports:
