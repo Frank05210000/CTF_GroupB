@@ -2,6 +2,16 @@
 
 這個資料夾是公開發題包。內容只提供部署與題目資訊，不包含解題手冊、`SOLUTION.md`、報告草稿或內部審查文件。
 
+## 題目入口頁
+
+GitHub Pages 入口頁：
+
+```text
+https://frank05210000.github.io/CTF_GroupB/
+```
+
+入口頁提供中英文題目敘述、目標、提示與規則。GitHub Pages 只負責顯示題目資訊，三題實際服務仍需在 lab 主機上用 Docker 啟動。
+
 ## 部署方式
 
 Clone 或解壓後，在專案根目錄執行：
