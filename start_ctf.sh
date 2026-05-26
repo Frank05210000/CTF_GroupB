@@ -23,6 +23,10 @@ if ! docker compose version >/dev/null 2>&1; then
 fi
 
 HOST_IP="${1:-127.0.0.1}"
+PORTAL_PORT="${PORTAL_PORT:-8000}"
+EASY_PORT="${EASY_PORT:-8080}"
+MEDIUM_PORT="${MEDIUM_PORT:-5000}"
+HARD_PORT="${HARD_PORT:-2222}"
 
 echo -e "${YELLOW}[1/2] 建置並在背景啟動三題...${NC}"
 docker compose up --build -d
@@ -32,7 +36,8 @@ docker compose ps
 
 echo -e "\n${GREEN}[完成] CTF 服務已啟動。${NC}"
 echo -e "Red Team 目標："
-echo -e "  Easy   : http://${HOST_IP}:8080/challenge.png"
-echo -e "  Medium : http://${HOST_IP}:5000"
-echo -e "  Hard   : ${HOST_IP}:2222"
+echo -e "  Portal : http://${HOST_IP}:${PORTAL_PORT}/?easy=${EASY_PORT}&medium=${MEDIUM_PORT}&hard=${HARD_PORT}"
+echo -e "  Easy   : http://${HOST_IP}:${EASY_PORT}/challenge.png"
+echo -e "  Medium : http://${HOST_IP}:${MEDIUM_PORT}"
+echo -e "  Hard   : ${HOST_IP}:${HARD_PORT}"
 echo -e "\n可執行 ./check_ctf.sh ${HOST_IP} 檢查服務狀態。"

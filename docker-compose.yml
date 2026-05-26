@@ -1,10 +1,18 @@
 services:
+  portal:
+    build: ./portal
+    image: ctf-groupb-portal
+    container_name: ctf-groupb-portal
+    ports:
+      - "${PORTAL_PORT:-8000}:8000"
+    restart: unless-stopped
+
   easy:
     build: ./challenges/easy_metadata_challenge
     image: ctf-easy-metadata
     container_name: ctf-easy-metadata
     ports:
-      - "8080:8080"
+      - "${EASY_PORT:-8080}:8080"
     restart: unless-stopped
 
   medium:
@@ -12,7 +20,7 @@ services:
     image: ctf-medium-web
     container_name: ctf-medium-web
     ports:
-      - "5000:5000"
+      - "${MEDIUM_PORT:-5000}:5000"
     restart: unless-stopped
 
   hard:
@@ -20,5 +28,5 @@ services:
     image: hard-ssh-suid
     container_name: ctf-hard-ssh-suid
     ports:
-      - "2222:22"
+      - "${HARD_PORT:-2222}:22"
     restart: unless-stopped

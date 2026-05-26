@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CTF GroupB Challenge Portal</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17212b;
+      --muted: #5b6875;
+      --line: #d8e0e7;
+      --panel: #ffffff;
+      --page: #eef2f5;
+      --accent: #146c78;
+      --accent-strong: #0f5660;
+      --warn: #9a5a00;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, "Noto Sans TC", sans-serif;
+      background: var(--page);
+      color: var(--ink);
+    }
+
+    header {
+      background: #1c3447;
+      color: #fff;
+      padding: 28px 32px;
+      border-bottom: 4px solid var(--accent);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .title-block {
+      min-width: 0;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    header p {
+      margin: 0;
+      max-width: 920px;
+      color: #d8e7ef;
+      line-height: 1.6;
+    }
+
+    .language-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      flex: 0 0 auto;
+    }
+
+    .language-switch button {
+      min-width: 44px;
+      border: 0;
+      border-radius: 5px;
+      padding: 7px 10px;
+      background: transparent;
+      color: #d8e7ef;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .language-switch button[aria-pressed="true"] {
+      background: #fff;
+      color: #1c3447;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 32px));
+      margin: 28px auto 44px;
+    }
+
+    .notice {
+      background: #fff9e8;
+      border: 1px solid #efd28d;
+      color: #4c3a14;
+      padding: 14px 16px;
+      border-radius: 6px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    article {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    article h2 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 9px;
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    dl {
+      margin: 0;
+      display: grid;
+      grid-template-columns: 86px 1fr;
+      gap: 10px 12px;
+      line-height: 1.45;
+    }
+
+    dt {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    dd {
+      margin: 0;
+      min-width: 0;
+    }
+
+    code {
+      display: inline-block;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      background: #edf6f7;
+      border: 1px solid #d1e9ec;
+      border-radius: 4px;
+      padding: 3px 6px;
+      color: #113b42;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 14px;
+    }
+
+    a.button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 13px;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      margin-top: auto;
+    }
+
+    a.button:hover,
+    a.button:focus {
+      background: var(--accent-strong);
+    }
+
+    .rules {
+      margin-top: 22px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .rules h2 {
+      margin: 0 0 12px;
+      font-size: 20px;
+      letter-spacing: 0;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 24px 20px;
+      }
+
+      .topbar {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <div class="title-block">
+        <h1 data-i18n="pageTitle">CTF GroupB 題目入口</h1>
+        <p data-i18n="pageIntro">請閱讀每題敘述，從指定目標開始測試並取得 flag。所有攻擊範圍都限制在本 CTF lab 服務內。</p>
+      </div>
+      <div class="language-switch" aria-label="Language">
+        <button type="button" id="lang-zh" data-lang="zh" aria-pressed="true">中文</button>
+        <button type="button" id="lang-en" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="notice" data-i18n-html="notice">
+      Flag 格式為 <code>FLAG{...}</code>。若部署在遠端 Linux lab 主機，請將頁面中的 <code>127.0.0.1</code> 換成該主機 IP。
+    </div>
+
+    <section class="grid" aria-label="CTF challenges">
+      <article>
+        <h2 data-i18n="easyTitle">Easy：我只是在看圖</h2>
+        <div class="meta">
+          <span class="tag">100 pts</span>
+          <span class="tag">Image Metadata</span>
+          <span class="tag">Base64</span>
+        </div>
+        <p data-i18n="easyDesc">公司內部網站上傳了一張活動照片。Blue Team 懷疑圖片匯出流程把內部發布備註一起保留在檔案裡。</p>
+        <dl>
+          <dt data-i18n="labelStart">起點</dt>
+          <dd><code id="easy-target">http://127.0.0.1:8080/challenge.png</code></dd>
+          <dt data-i18n="labelTask">任務</dt>
+          <dd data-i18n="easyTask">下載題目圖片，分析檔案資訊並找出 flag。</dd>
+          <dt data-i18n="labelHint">提示</dt>
+          <dd data-i18n="easyHint">圖片本身看起來正常，但檔案資訊也值得檢查。</dd>
+        </dl>
+        <a class="button" id="easy-link" href="http://127.0.0.1:8080/challenge.png" data-i18n="easyButton">下載題目圖片</a>
+      </article>
+
+      <article>
+        <h2 data-i18n="mediumTitle">Medium：你以為你登進去了</h2>
+        <div class="meta">
+          <span class="tag">200 pts</span>
+          <span class="tag">Web</span>
+          <span class="tag">IDOR</span>
+        </div>
+        <p data-i18n="mediumDesc">這是一個 TW-Corp 內部員工系統。你有一組普通員工帳號，但聽說系統裡有管理者才能看到的機密資料。</p>
+        <dl>
+          <dt data-i18n="labelStart">起點</dt>
+          <dd><code id="medium-target">http://127.0.0.1:5000</code></dd>
+          <dt data-i18n="labelAccount">帳號</dt>
+          <dd><code>employee / pass1234</code></dd>
+          <dt data-i18n="labelTask">任務</dt>
+          <dd data-i18n="mediumTask">登入系統，在授權範圍內測試是否能取得機密資料。</dd>
+          <dt data-i18n="labelHint">提示</dt>
+          <dd data-i18n="mediumHint">登入只是開始。URL 上的資料識別碼可能比頁面本身更重要。</dd>
+        </dl>
+        <a class="button" id="medium-link" href="http://127.0.0.1:5000" data-i18n="mediumButton">開啟 Web 服務</a>
+      </article>
+
+      <article>
+        <h2 data-i18n="hardTitle">Hard：進來只是開始</h2>
+        <div class="meta">
+          <span class="tag">300 pts</span>
+          <span class="tag">SSH</span>
+          <span class="tag">Privilege Escalation</span>
+        </div>
+        <p data-i18n="hardDesc">你拿到一台隔離 lab 主機的目標服務。請在指定範圍內進行偵察，取得系統內的 root flag。</p>
+        <dl>
+          <dt data-i18n="labelStart">起點</dt>
+          <dd><code id="hard-target">127.0.0.1:2222</code></dd>
+          <dt data-i18n="labelTask">任務</dt>
+          <dd data-i18n="hardTask">先確認服務類型，再取得低權限 shell，最後嘗試讀取 root flag。</dd>
+          <dt data-i18n="labelHint">提示</dt>
+          <dd>The first door is easy to knock. The real flag is deeper.</dd>
+        </dl>
+        <a class="button" href="#rules" data-i18n="rulesButton">查看規則</a>
+      </article>
+    </section>
+
+    <section class="rules" id="rules">
+      <h2 data-i18n="rulesTitle">共同規則</h2>
+      <ul>
+        <li data-i18n="ruleScope">只能攻擊本頁列出的 lab 服務。</li>
+        <li data-i18n="ruleDos">禁止 DoS 或攻擊 lab 外任何主機。</li>
+        <li data-i18n="ruleVm">不需要修改 VM 桌面或讀取發題資料夾。</li>
+        <li data-i18n="ruleInfo">不需要登入出題者帳號；所有題目資訊都在本頁提供。</li>
+        <li data-i18n="ruleEvidence">取得 flag 後請保留必要截圖與指令紀錄。</li>
+      </ul>
+    </section>
+  </main>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const host = params.get("host") || window.location.hostname || "127.0.0.1";
+    const easyPort = params.get("easy") || "8080";
+    const mediumPort = params.get("medium") || "5000";
+    const hardPort = params.get("hard") || "2222";
+    const translations = {
+      zh: {
+        documentTitle: "CTF GroupB 題目入口",
+        pageTitle: "CTF GroupB 題目入口",
+        pageIntro: "請閱讀每題敘述，從指定目標開始測試並取得 flag。所有攻擊範圍都限制在本 CTF lab 服務內。",
+        notice: "Flag 格式為 <code>FLAG{...}</code>。若部署在遠端 Linux lab 主機，請將頁面中的 <code>127.0.0.1</code> 換成該主機 IP。",
+        labelStart: "起點",
+        labelTask: "任務",
+        labelHint: "提示",
+        labelAccount: "帳號",
+        easyTitle: "Easy：我只是在看圖",
+        easyDesc: "公司內部網站上傳了一張活動照片。Blue Team 懷疑圖片匯出流程把內部發布備註一起保留在檔案裡。",
+        easyTask: "下載題目圖片，分析檔案資訊並找出 flag。",
+        easyHint: "圖片本身看起來正常，但檔案資訊也值得檢查。",
+        easyButton: "下載題目圖片",
+        mediumTitle: "Medium：你以為你登進去了",
+        mediumDesc: "這是一個 TW-Corp 內部員工系統。你有一組普通員工帳號，但聽說系統裡有管理者才能看到的機密資料。",
+        mediumTask: "登入系統，在授權範圍內測試是否能取得機密資料。",
+        mediumHint: "登入只是開始。URL 上的資料識別碼可能比頁面本身更重要。",
+        mediumButton: "開啟 Web 服務",
+        hardTitle: "Hard：進來只是開始",
+        hardDesc: "你拿到一台隔離 lab 主機的目標服務。請在指定範圍內進行偵察，取得系統內的 root flag。",
+        hardTask: "先確認服務類型，再取得低權限 shell，最後嘗試讀取 root flag。",
+        rulesButton: "查看規則",
+        rulesTitle: "共同規則",
+        ruleScope: "只能攻擊本頁列出的 lab 服務。",
+        ruleDos: "禁止 DoS 或攻擊 lab 外任何主機。",
+        ruleVm: "不需要修改 VM 桌面或讀取發題資料夾。",
+        ruleInfo: "不需要登入出題者帳號；所有題目資訊都在本頁提供。",
+        ruleEvidence: "取得 flag 後請保留必要截圖與指令紀錄。"
+      },
+      en: {
+        documentTitle: "CTF GroupB Challenge Portal",
+        pageTitle: "CTF GroupB Challenge Portal",
+        pageIntro: "Read each challenge description, start from the listed target, and capture the flag. All activity must stay inside this CTF lab.",
+        notice: "Flags use the format <code>FLAG{...}</code>. If this lab is deployed on a remote Linux host, replace <code>127.0.0.1</code> with that host IP.",
+        labelStart: "Start",
+        labelTask: "Task",
+        labelHint: "Hint",
+        labelAccount: "Account",
+        easyTitle: "Easy: I Was Just Looking at a Picture",
+        easyDesc: "An internal company website published an event photo. Blue Team suspects the export process kept an internal publishing note inside the file.",
+        easyTask: "Download the challenge image, inspect the file information, and find the flag.",
+        easyHint: "The image itself looks normal, but the file information is also worth checking.",
+        easyButton: "Download Image",
+        mediumTitle: "Medium: You Thought You Were Logged In",
+        mediumDesc: "This is the TW-Corp employee portal. You have a normal employee account, but there may be confidential data intended only for administrators.",
+        mediumTask: "Log in and test, within scope, whether confidential data can be accessed.",
+        mediumHint: "Logging in is only the beginning. The data identifier in the URL may matter more than the page itself.",
+        mediumButton: "Open Web Service",
+        hardTitle: "Hard: Getting In Is Only the Start",
+        hardDesc: "You are given a target service on an isolated lab host. Recon within the allowed scope and obtain the system's root flag.",
+        hardTask: "Identify the service, obtain a low-privilege shell, then try to read the root flag.",
+        rulesButton: "View Rules",
+        rulesTitle: "Rules",
+        ruleScope: "Only attack the lab services listed on this page.",
+        ruleDos: "Do not perform DoS or attack any host outside the lab.",
+        ruleVm: "You do not need to modify the VM desktop or read the challenge source folder.",
+        ruleInfo: "You do not need the author's account; all challenge information is provided on this page.",
+        ruleEvidence: "After capturing a flag, keep the necessary screenshots and command history."
+      }
+    };
+
+    const easyUrl = `http://${host}:${easyPort}/challenge.png`;
+    const mediumUrl = `http://${host}:${mediumPort}`;
+    const initialLang = params.get("lang") === "en" ? "en" : "zh";
+
+    document.getElementById("easy-target").textContent = easyUrl;
+    document.getElementById("easy-link").href = easyUrl;
+    document.getElementById("medium-target").textContent = mediumUrl;
+    document.getElementById("medium-link").href = mediumUrl;
+    document.getElementById("hard-target").textContent = `${host}:${hardPort}`;
+
+    function setLanguage(lang, updateUrl) {
+      const text = translations[lang] || translations.zh;
+      document.documentElement.lang = lang === "en" ? "en" : "zh-Hant";
+      document.title = text.documentTitle;
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        element.textContent = text[element.dataset.i18n];
+      });
+
+      document.querySelectorAll("[data-i18n-html]").forEach((element) => {
+        element.innerHTML = text[element.dataset.i18nHtml];
+      });
+
+      document.querySelectorAll("[data-lang]").forEach((button) => {
+        button.setAttribute("aria-pressed", button.dataset.lang === lang ? "true" : "false");
+      });
+
+      if (updateUrl) {
+        params.set("lang", lang);
+        history.replaceState(null, "", `${window.location.pathname}?${params.toString()}`);
+      }
+    }
+
+    document.querySelectorAll("[data-lang]").forEach((button) => {
+      button.addEventListener("click", () => setLanguage(button.dataset.lang, true));
+    });
+
+    setLanguage(initialLang, false);
+  </script>
+</body>
+</html>

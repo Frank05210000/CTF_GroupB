@@ -10,6 +10,10 @@ NC='\033[0m'
 cd "$(dirname "$0")"
 
 HOST_IP="${1:-127.0.0.1}"
+PORTAL_PORT="${PORTAL_PORT:-8000}"
+EASY_PORT="${EASY_PORT:-8080}"
+MEDIUM_PORT="${MEDIUM_PORT:-5000}"
+HARD_PORT="${HARD_PORT:-2222}"
 FAILED=0
 
 echo -e "${BLUE}===============================================${NC}"
@@ -55,9 +59,10 @@ echo -e "${YELLOW}[1/2] Docker Compose 狀態${NC}"
 docker compose ps || FAILED=1
 
 echo -e "\n${YELLOW}[2/2] 服務連線檢查${NC}"
-check_http "Easy metadata image" "http://${HOST_IP}:8080/challenge.png"
-check_http "Medium web app" "http://${HOST_IP}:5000"
-check_tcp "Hard SSH service" "$HOST_IP" "2222"
+check_http "Challenge portal" "http://${HOST_IP}:${PORTAL_PORT}/"
+check_http "Easy metadata image" "http://${HOST_IP}:${EASY_PORT}/challenge.png"
+check_http "Medium web app" "http://${HOST_IP}:${MEDIUM_PORT}"
+check_tcp "Hard SSH service" "$HOST_IP" "$HARD_PORT"
 
 if [ "$FAILED" -eq 0 ]; then
     echo -e "\n${GREEN}[完成] 三題服務檢查通過。${NC}"
