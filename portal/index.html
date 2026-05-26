@@ -326,7 +326,9 @@
   </main>
   <script>
     const params = new URLSearchParams(window.location.search);
-    const host = params.get("host") || window.location.hostname || "127.0.0.1";
+    const pagesHostPattern = /\.github\.io$/;
+    const defaultHost = pagesHostPattern.test(window.location.hostname) ? "192.168.100.108" : (window.location.hostname || "127.0.0.1");
+    const host = params.get("host") || defaultHost;
     const easyPort = params.get("easy") || "8080";
     const mediumPort = params.get("medium") || "5000";
     const hardPort = params.get("hard") || "2222";
