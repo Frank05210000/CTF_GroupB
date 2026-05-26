@@ -36,7 +36,7 @@ docker compose ps
 
 echo -e "\n${GREEN}[完成] CTF 服務已啟動。${NC}"
 echo -e "Red Team 目標："
-echo -e "  Portal : http://${HOST_IP}:${PORTAL_PORT}/?easy=${EASY_PORT}&medium=${MEDIUM_PORT}&hard=${HARD_PORT}"
+echo -e "  Portal : http://${HOST_IP}:${PORTAL_PORT}/?host=${HOST_IP}&easy=${EASY_PORT}&medium=${MEDIUM_PORT}&hard=${HARD_PORT}"
 echo -e "  Easy   : http://${HOST_IP}:${EASY_PORT}/challenge.png"
 echo -e "  Medium : http://${HOST_IP}:${MEDIUM_PORT}"
 echo -e "  Hard   : ${HOST_IP}:${HARD_PORT}"
